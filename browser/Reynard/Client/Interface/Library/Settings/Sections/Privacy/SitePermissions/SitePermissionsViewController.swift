@@ -106,7 +106,7 @@ final class SitePermissionsViewController: SettingsTableViewController {
     
     init() {
         super.init(style: .insetGrouped)
-        title = "Site Permissions"
+        title = Localized.sitePermissions
     }
     
     required init?(coder: NSCoder) {
@@ -154,7 +154,7 @@ final class SitePermissionsViewController: SettingsTableViewController {
                 return disabledPermissionMessageCell()
             case .openSettings:
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-                cell.textLabel?.text = "Open Settings"
+                cell.textLabel?.text = Localized.openSettings
                 cell.textLabel?.textColor = view.tintColor
                 cell.accessoryType = .none
                 return cell
@@ -191,10 +191,10 @@ final class SitePermissionsViewController: SettingsTableViewController {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             switch WebsiteActionRow.allCases[indexPath.row] {
             case .resetPermissions:
-                cell.textLabel?.text = "Reset Permissions for all Sites"
+                cell.textLabel?.text = Localized.resetAllPermissions
                 cell.textLabel?.textColor = .systemRed
                 if hasResetAllSitePermissions {
-                    cell.detailTextLabel?.text = "Successfully reset permissions for all sites."
+                    cell.detailTextLabel?.text = Localized.successfullyResetPermissions
                 } else {
                     cell.detailTextLabel?.text = nil
                 }

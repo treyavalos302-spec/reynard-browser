@@ -85,65 +85,65 @@ public struct AddonErrorPresenter {
         if let trimmedAddonName, !trimmedAddonName.isEmpty {
             resolvedAddonName = trimmedAddonName
         } else {
-            resolvedAddonName = "This extension"
+            resolvedAddonName = Localized.thisExtension
         }
         let normalizedCode = normalizeCode(code)
         
-        if cancelledByUser || normalizedCode == "ERROR_USER_CANCELED" || normalizedCode == "ERROR_ABORTED" {
+        if cancelledByUser || normalizedCode == Localized.errorUserCanceled || normalizedCode == Localized.errorAborted {
             return AddonErrorPresentation(
                 statusText: nil,
-                alertMessage: isInstallation ? defaultInstallMessage(for: trimmedAddonName) : "Failed to update extension.",
+                alertMessage: isInstallation ? defaultInstallMessage(for: trimmedAddonName) : Localized.failedToUpdateExtension,
                 isUserCancelled: true
             )
         }
         
         switch normalizedCode {
-        case "ERROR_BLOCKLISTED":
+        case Localized.errorBlocklisted: // Original: ERROR_BLOCKLISTED
             return AddonErrorPresentation(
-                statusText: "Blocked",
-                alertMessage: "\(resolvedAddonName) violates Mozilla's policies and can't be installed on Reynard.",
+                statusText: Localized.blocked,
+                alertMessage: String(format: Localized.addonViolatesPolicies, resolvedAddonName),
                 isUserCancelled: false
             )
-        case "ERROR_SOFT_BLOCKED":
+        case Localized.errorSoftBlocked: // Original: ERROR_SOFT_BLOCKED
             return AddonErrorPresentation(
-                statusText: "Restricted",
-                alertMessage: "\(resolvedAddonName) is restricted and can't be installed on Reynard.",
+                statusText: Localized.restricted,
+                alertMessage: String(format: Localized.addonRestricted, resolvedAddonName),
                 isUserCancelled: false
             )
-        case "ERROR_NETWORK_FAILURE":
+        case Localized.errorNetworkFailure: // Original: ERROR_NETWORK_FAILURE
             return AddonErrorPresentation(
-                statusText: "Network error",
-                alertMessage: "This extension could not be downloaded because of a connection failure.",
+                statusText: Localized.networkError,
+                alertMessage: Localized.connectionFailure,
                 isUserCancelled: false
             )
-        case "ERROR_CORRUPT_FILE":
+        case Localized.errorCorruptFile: // Original: ERROR_CORRUPT_FILE
             return AddonErrorPresentation(
-                statusText: "Corrupt file",
-                alertMessage: "This extension could not be installed because it appears to be corrupt.",
+                statusText: Localized.corruptFile,
+                alertMessage: Localized.fileCorrupt,
                 isUserCancelled: false
             )
-        case "ERROR_SIGNEDSTATE_REQUIRED":
+        case Localized.errorSignedStateRequired: // Original: ERROR_SIGNEDSTATE_REQUIRED
             return AddonErrorPresentation(
-                statusText: "Not verified",
-                alertMessage: "This extension could not be installed because it has not been verified.",
+                statusText: Localized.notVerified,
+                alertMessage: Localized.notVerifiedMessage,
                 isUserCancelled: false
             )
-        case "ERROR_INCOMPATIBLE":
+        case Localized.errorIncompatible: // Original: ERROR_INCOMPATIBLE
             return AddonErrorPresentation(
-                statusText: "Incompatible",
-                alertMessage: "\(resolvedAddonName) could not be installed because it is not compatible with this version of Reynard.",
+                statusText: Localized.incompatible,
+                alertMessage: String(format: Localized.incompatibleMessage, resolvedAddonName),
                 isUserCancelled: false
             )
-        case "ERROR_ADMIN_INSTALL_ONLY":
+        case Localized.errorAdminInstallOnly: // Original: ERROR_ADMIN_INSTALL_ONLY
             return AddonErrorPresentation(
-                statusText: "Admin-only",
-                alertMessage: "\(resolvedAddonName) could not be installed because it can only be installed by an organization using enterprise policies, which isn't supported on this platform.",
+                statusText: Localized.adminOnly,
+                alertMessage: String(format: Localized.adminOnlyMessage, resolvedAddonName),
                 isUserCancelled: false
             )
         default:
             return AddonErrorPresentation(
-                statusText: isInstallation ? "Error" : "Update failed",
-                alertMessage: isInstallation ? defaultInstallMessage(for: trimmedAddonName) : "Failed to update extension.",
+                statusText: isInstallation ? Localized.error : Localized.updateFailed,
+                alertMessage: isInstallation ? defaultInstallMessage(for: trimmedAddonName) : Localized.failedToUpdateExtension,
                 isUserCancelled: false
             )
         }
@@ -151,9 +151,9 @@ public struct AddonErrorPresenter {
     
     private static func defaultInstallMessage(for addonName: String?) -> String {
         if let addonName, !addonName.isEmpty {
-            return "Failed to install \(addonName)."
+            return String(format: Localized.failedToInstallAddon, addonName)
         }
-        return "Failed to install this extension."
+        return Localized.failedToInstallThisExtension
     }
     
     private static func normalizeCode(_ code: String?) -> String? {
@@ -162,24 +162,24 @@ public struct AddonErrorPresenter {
         }
         
         switch code {
-        case "-1", "ERROR_NETWORK_FAILURE":
-            return "ERROR_NETWORK_FAILURE"
-        case "-3", "ERROR_CORRUPT_FILE":
-            return "ERROR_CORRUPT_FILE"
-        case "-5", "ERROR_SIGNEDSTATE_REQUIRED":
-            return "ERROR_SIGNEDSTATE_REQUIRED"
-        case "-10", "ERROR_BLOCKLISTED":
-            return "ERROR_BLOCKLISTED"
-        case "-11", "ERROR_INCOMPATIBLE":
-            return "ERROR_INCOMPATIBLE"
-        case "-13", "ERROR_ADMIN_INSTALL_ONLY":
-            return "ERROR_ADMIN_INSTALL_ONLY"
-        case "-14", "ERROR_SOFT_BLOCKED":
-            return "ERROR_SOFT_BLOCKED"
-        case "-12", "ERROR_POSTPONED":
-            return "ERROR_POSTPONED"
-        case "-100", "ERROR_USER_CANCELED", "ERROR_USER_CANCELLED":
-            return "ERROR_USER_CANCELED"
+        case "-1", Localized.errorNetworkFailure:
+            return Localized.errorNetworkFailure
+        case "-3", Localized.errorCorruptFile:
+            return Localized.errorCorruptFile
+        case "-5", Localized.errorSignedStateRequired:
+            return Localized.errorSignedStateRequired
+        case "-10", Localized.errorBlocklisted:
+            return Localized.errorBlocklisted
+        case "-11", Localized.errorIncompatible:
+            return Localized.errorIncompatible
+        case "-13", Localized.errorAdminInstallOnly:
+            return Localized.errorAdminInstallOnly
+        case "-14", Localized.errorSoftBlocked:
+            return Localized.errorSoftBlocked
+        case "-12", Localized.errorPostponed:
+            return Localized.errorPostponed
+        case "-100", Localized.errorUserCanceled, "ERROR_USER_CANCELLED":
+            return Localized.errorUserCanceled
         default:
             return code
         }

@@ -32,7 +32,7 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
     
     init() {
         super.init(style: .insetGrouped)
-        title = "Search Engine"
+        title = Localized.searchEngine
     }
     
     required init?(coder: NSCoder) {
@@ -82,7 +82,7 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
                     return UITableViewCell()
                 }
                 cell.textField.delegate = self
-                cell.textField.placeholder = "https://example.com/search?q=%s"
+                cell.textField.placeholder = Localized.customSearchURL
                 cell.textField.text = Prefs.SearchSettings.customSearchTemplate
                 return cell
             }
@@ -130,7 +130,7 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
         guard displayedSection == .customTemplate else {
             return displayedSection.text
         }
-        let baseText = "Enter URL with %s in place of query"
+        let baseText = Localized.enterSearchURL
         guard !Prefs.SearchSettings.customSearchTemplate.isEmpty,
               SearchEngine.canSearch(using: Prefs.SearchSettings.customSearchTemplate) else {
             return SettingsSectionText(footerTitle: baseText)
@@ -144,8 +144,8 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
         let customQueryTemplate = Prefs.SearchSettings.customSearchTemplate
         guard !customQueryTemplate.isEmpty, !SearchEngine.canSearch(using: customQueryTemplate) else { return }
         AlertPresenter.show(
-            title: "Invalid Search URL",
-            message: "Enter a valid http(s) URL containing %s where the search query should go."
+            title: Localized.invalidSearchURL,
+            message: Localized.enterSearchURL
         )
     }
     

@@ -104,21 +104,21 @@ final class DateTimePicker: NSObject, UIPopoverPresentationControllerDelegate {
     
     private func resolvedPickerMode() -> UIDatePicker.Mode {
         switch inputMode {
-        case "time": return .time
-        case "date": return .date
-        case "datetime-local": return .dateAndTime
+        case Localized.time: return .time
+        case Localized.date: return .date
+        case Localized.datetimeLocal: return .dateAndTime
         default: return .date
         }
     }
     
     private func parseDate(_ value: String) -> Date? {
         switch inputMode {
-        case "date":
+        case Localized.date:
             return Self.utcFormatter("yyyy-MM-dd").date(from: value)
-        case "datetime-local":
+        case Localized.datetimeLocal:
             if let date = Self.localFormatter("yyyy-MM-dd'T'HH:mm:ss").date(from: value) { return date }
             return Self.localFormatter("yyyy-MM-dd'T'HH:mm").date(from: value)
-        case "time":
+        case Localized.time:
             if let date = Self.localFormatter("HH:mm:ss").date(from: value) { return date }
             return Self.localFormatter("HH:mm").date(from: value)
         default:
@@ -128,19 +128,19 @@ final class DateTimePicker: NSObject, UIPopoverPresentationControllerDelegate {
     
     private func formatDate(_ date: Date) -> String {
         switch inputMode {
-        case "date":
+        case Localized.date:
             return Self.utcFormatter("yyyy-MM-dd").string(from: date)
-        case "datetime-local":
+        case Localized.datetimeLocal:
             return Self.localFormatter("yyyy-MM-dd'T'HH:mm").string(from: date)
-        case "time":
+        case Localized.time:
             return Self.localFormatter("HH:mm").string(from: date)
         default:
-            return ""
+            return "" // Should not be reached
         }
     }
     
     private func minuteInterval(for step: String) -> Int {
-        guard inputMode == "time" || inputMode == "datetime-local",
+        guard inputMode == Localized.time || inputMode == Localized.datetimeLocal,
               let seconds = Double(step),
               seconds > 0 else { return 1 }
         let minutes = Int(seconds / 60)

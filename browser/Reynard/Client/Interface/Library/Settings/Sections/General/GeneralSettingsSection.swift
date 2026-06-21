@@ -27,15 +27,15 @@ struct GeneralSettingsSection {
         
         switch Row.allCases[index] {
         case .addons:
-            return SettingsViewUtils.disclosureCell(title: "Add-ons")
+            return SettingsViewUtils.disclosureCell(title: Localized.addons)
         case .browsing:
-            return SettingsViewUtils.disclosureCell(title: "Browsing")
+            return SettingsViewUtils.disclosureCell(title: Localized.browsing)
         case .search:
-            return SettingsViewUtils.disclosureCell(title: "Search")
+            return SettingsViewUtils.disclosureCell(title: Localized.search)
         case .appearance:
-            return SettingsViewUtils.disclosureCell(title: "Appearance")
+            return SettingsViewUtils.disclosureCell(title: Localized.appearance)
         case .compatibility:
-            return SettingsViewUtils.disclosureCell(title: "Compatibility")
+            return SettingsViewUtils.disclosureCell(title: "兼容性")
         }
     }
     

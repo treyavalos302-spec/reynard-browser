@@ -14,7 +14,7 @@ final class BrowsingPreferencesViewController: SettingsTableViewController {
         var text: SettingsSectionText {
             switch self {
             case .desktopWebsite:
-                return SettingsSectionText(headerTitle: "Request Desktop Website On")
+                return SettingsSectionText(headerTitle: Localized.requestDesktopSite)
             }
         }
     }
@@ -27,7 +27,7 @@ final class BrowsingPreferencesViewController: SettingsTableViewController {
     
     init() {
         super.init(style: .insetGrouped)
-        title = "Browsing"
+        title = Localized.browsing
     }
     
     required init?(coder: NSCoder) {
@@ -77,7 +77,7 @@ final class BrowsingPreferencesViewController: SettingsTableViewController {
         case .allWebsites:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             cell.selectionStyle = .none
-            cell.textLabel?.text = "All Website"
+            cell.textLabel?.text = Localized.allWebsites
             cell.accessoryView = requestDesktopWebsiteSwitch
             return cell
         }

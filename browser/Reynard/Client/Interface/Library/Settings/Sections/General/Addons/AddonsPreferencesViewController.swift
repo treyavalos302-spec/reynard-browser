@@ -81,20 +81,20 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
     
     private var addonUpdateActionTitle: String {
         if isCheckingForAddonUpdates {
-            return "Updating Add-ons..."
+            return Localized.updatingAddons
         }
         if let browserViewController = LibrarySharedUtils.resolvedBrowserViewController(from: self),
            browserViewController.addonCoordinator.updateCoordinator.hasPendingApprovals {
-            return "Complete Add-on Updates"
+            return Localized.completeAddonUpdates
         }
-        return "Update All Add-ons"
+        return "更新所有扩展"
     }
     
     // MARK: - Lifecycle
     
     init() {
         super.init(style: .insetGrouped)
-        title = "Add-ons"
+        title = Localized.addons
     }
     
     required init?(coder: NSCoder) {
@@ -150,7 +150,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             if installedAddons.isEmpty {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.selectionStyle = .none
-                cell.textLabel?.text = isLoadingAddons ? "Loading Add-ons..." : "No Add-ons Installed"
+                cell.textLabel?.text = isLoadingAddons ? Localized.loadingAddons : Localized.noAddonsInstalledMessage
                 cell.textLabel?.textColor = .secondaryLabel
                 return cell
             }
@@ -176,7 +176,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             }
             
             let addon = unsupportedAddons[indexPath.row]
-            let statusText = statusText(for: addon) ?? "Unsupported"
+            let statusText = statusText(for: addon) ?? Localized.unsupported
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             cell.textLabel?.text = addon.metaData.name ?? addon.id
             cell.detailTextLabel?.text = statusText
@@ -193,10 +193,10 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             switch displayedMoreRows[indexPath.row] {
             case .discover:
-                cell.textLabel?.text = "Discover Add-ons..."
+                cell.textLabel?.text = Localized.discoverAddonsMessage
                 cell.textLabel?.textColor = view.tintColor
             case .installFromFile:
-                cell.textLabel?.text = isInstallingAddonFromFile ? "Installing Add-on..." : "Install Add-on From File..."
+                cell.textLabel?.text = isInstallingAddonFromFile ? Localized.installingAddon : Localized.installAddonFromFile
                 cell.textLabel?.textColor = isInstallingAddonFromFile ? .secondaryLabel : view.tintColor
                 if isInstallingAddonFromFile {
                     cell.selectionStyle = .none
@@ -501,10 +501,10 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             return
         }
         
-        pendingApprovalAddonIDs.forEach { addonStatusTextByID[$0] = "Needs permission to update" }
+        pendingApprovalAddonIDs.forEach { addonStatusTextByID[$0] = Localized.needsPermissionToUpdate }
         updateFooterMessage = pendingApprovalAddonIDs.count == 1
-        ? "1 add-on needs permission to update."
-        : "\(pendingApprovalAddonIDs.count) add-ons need permission to update."
+        ? Localized.oneAddonNeedsPermissionToUpdate
+        : String(format: Localized.addonNeedsPermissionToUpdate, pendingApprovalAddonIDs.count)
     }
     
     private func updateAddons() {

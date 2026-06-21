@@ -112,7 +112,7 @@ final class ToolbarButton: UIButton {
         downloadProgressTrackView.isHidden = !showsProgress
         downloadProgressFillView.isHidden = !showsProgress
         downloadProgressFillWidthConstraint.constant = UX.downloadProgressTrackWidth * progress
-        accessibilityLabel = "Downloads"
+        accessibilityLabel = Localized.downloads
     }
     
     // MARK: - View Setup
@@ -180,14 +180,14 @@ final class ToolbarButton: UIButton {
     
     private var symbolName: String {
         switch toolbarButtonType {
-        case .back: return "reynard.chevron.backward"
-        case .forward: return "reynard.chevron.forward"
-        case .share: return "reynard.square.and.arrow.up"
-        case .library: return "reynard.ellipsis.circle"
-        case .tabOverview: return "reynard.square.on.square"
-        case .download: return "reynard.arrow.down.circle"
-        case .newTab: return "reynard.plus"
-        case .sidebar: return "reynard.sidebar.left"
+        case .back: return Localized.back
+        case .forward: return Localized.forward
+        case .share: return Localized.share
+        case .library: return Localized.library
+        case .tabOverview: return Localized.tabOverview
+        case .download: return Localized.downloads
+        case .newTab: return Localized.newTab
+        case .sidebar: return Localized.sidebar
         }
     }
     
