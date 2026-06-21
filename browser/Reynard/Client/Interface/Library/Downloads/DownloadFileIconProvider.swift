@@ -44,7 +44,7 @@ final class DownloadFileIconProvider {
               let image = documentInteractionIcon(
                 for: placeholderFileURL,
                 uti: kUTTypeData as String,
-                name: "Downloading"
+                name: "下载中"
               ) else {
             return nil
         }

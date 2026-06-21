@@ -34,7 +34,7 @@ enum SearchEngine: String, CaseIterable {
         case .startpage:
             return "Startpage"
         case .custom:
-            return "Custom"
+            return "自定义"
         }
     }
     

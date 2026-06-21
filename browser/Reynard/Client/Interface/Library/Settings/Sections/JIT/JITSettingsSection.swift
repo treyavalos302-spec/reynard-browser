@@ -47,12 +47,12 @@ final class JITSettingsSection: NSObject {
         switch Row.allCases[index] {
         case .enableJIT:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Enable JIT"
+            cell.textLabel?.text = "启用 JIT"
             cell.selectionStyle = .none
             cell.accessoryView = jitSwitch
             return cell
         case .importPairingFile:
-            let cell = SettingsViewUtils.actionCell(title: "Import Pairing File...", tintColor: tintColor)
+            let cell = SettingsViewUtils.actionCell(title: "导入配对文件...", tintColor: tintColor)
             
             if #available(iOS 16.6, *) {
                 if #unavailable(iOS 17.4) {
@@ -152,7 +152,7 @@ final class JITSettingsSection: NSObject {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    AlertPresenter.show(title: "Import Failed", message: error.localizedDescription)
+                    AlertPresenter.show(title: "导入失败", message: error.localizedDescription)
                 }
             }
         }
@@ -165,8 +165,8 @@ final class JITSettingsSection: NSObject {
         
         sender.isEnabled = false
         let alert = UIAlertController(
-            title: "Preparing JIT",
-            message: "Since this is your first time enabling JIT, Reynard needs to download and mount the Developer Disk Image. This is required for JIT to work properly.",
+            title: "准备 JIT",
+            message: "由于这是您首次启用 JIT，Reynard 需要下载并挂载开发者磁盘映像。这是 JIT 正常工作所必需的。",
             preferredStyle: .alert
         )
         let progressView = UIProgressView(progressViewStyle: .default)
@@ -175,7 +175,7 @@ final class JITSettingsSection: NSObject {
         
         let token = UUID()
         activeDDIDownloadToken = token
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel) { [weak self] _ in
             self?.cancelDDI(for: sender, token: token)
         })
         
@@ -219,7 +219,7 @@ final class JITSettingsSection: NSObject {
                     Prefs.JITSettings.isJITEnabled = false
                     sender.setOn(false, animated: true)
                     SettingsViewUtils.dismissPresentedAlert(alert, from: settingsController) {
-                        AlertPresenter.show(title: "Download Failed", message: error.localizedDescription)
+                        AlertPresenter.show(title: "下载失败", message: error.localizedDescription)
                     }
                 }
             }
@@ -240,11 +240,11 @@ final class JITSettingsSection: NSObject {
     
     private func showRestartAlert() {
         let alert = UIAlertController(
-            title: "Restart Required",
-            message: "The app will now close for the JIT setting to take effect.",
+            title: "需要重启",
+            message: "应用现在将关闭以使 JIT 设置生效。",
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+        alert.addAction(UIAlertAction(title: "确定", style: .default) { _ in
             UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 exit(EXIT_SUCCESS)
@@ -276,7 +276,7 @@ final class JITSettingsSection: NSObject {
         detailLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         detailLabel.adjustsFontForContentSizeCategory = true
         detailLabel.textColor = .secondaryLabel
-        detailLabel.text = "Enabling JIT improves performance significantly and is required for features like WebAssembly."
+        detailLabel.text = "启用 JIT 可显著提高性能，并且是 WebAssembly 等功能所必需的。"
         return detailLabel
     }
     
@@ -286,7 +286,7 @@ final class JITSettingsSection: NSObject {
         warningLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         warningLabel.adjustsFontForContentSizeCategory = true
         warningLabel.textColor = .systemRed
-        warningLabel.text = "This pairing-based JIT enablement method is not working properly on the OS version you are using. You can use the browser without JIT; or if you're on an iOS/iPadOS version that supports TrollStore, consider using the TrollStore IPA instead."
+        warningLabel.text = "这种基于配对的 JIT 启用方法在您使用的操作系统版本上无法正常工作。您可以在没有 JIT 的情况下使用浏览器；或者如果您使用的 iOS/iPadOS 版本支持 TrollStore，请考虑使用 TrollStore 的 IPA 版本。"
         return warningLabel
     }
 }

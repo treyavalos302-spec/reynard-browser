@@ -78,7 +78,7 @@ final class AddressBar: UIView {
         let trailingButton: TrailingButtonState
     }
     
-    static let placeholderText = "Search or enter website name"
+    static let placeholderText = "搜索或输入网站名称"
     
     private weak var delegate: AddressBarDelegate?
     private weak var searchDelegate: AddressBarSearchDelegate?

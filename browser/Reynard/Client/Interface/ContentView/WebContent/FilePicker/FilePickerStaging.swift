@@ -28,7 +28,7 @@ extension FilePicker {
     nonisolated static func stageFolder(from url: URL, in directory: URL) throws -> SelectionResult {
         try prepareDirectory(directory)
         
-        let rootName = sanitizeFileName(url.lastPathComponent.isEmpty ? "Folder" : url.lastPathComponent)
+        let rootName = sanitizeFileName(url.lastPathComponent.isEmpty ? "文件夹" : url.lastPathComponent)
         let destinationURL = directory.appendingPathComponent(rootName, isDirectory: true)
         
         try withSecurityScopedAccess(to: url) {
@@ -97,7 +97,7 @@ extension FilePicker {
     
     nonisolated static func uniqueDestinationURL(in directory: URL, preferredName: String) -> URL {
         let fileManager = FileManager.default
-        let sanitizedName = sanitizeFileName(preferredName.isEmpty ? "File" : preferredName)
+        let sanitizedName = sanitizeFileName(preferredName.isEmpty ? "文件" : preferredName)
         let extensionPart = URL(fileURLWithPath: sanitizedName).pathExtension
         let baseName = extensionPart.isEmpty
         ? sanitizedName
@@ -118,7 +118,7 @@ extension FilePicker {
         let invalidCharacters = CharacterSet(charactersIn: "/:\n")
         let pieces = name.components(separatedBy: invalidCharacters)
         let sanitized = pieces.joined(separator: "-").trimmingCharacters(in: .whitespacesAndNewlines)
-        return sanitized.isEmpty ? "File" : sanitized
+        return sanitized.isEmpty ? "文件" : sanitized
     }
     
     private nonisolated static func mimeType(for url: URL) -> String {
@@ -259,11 +259,11 @@ extension FilePicker {
         
         let baseName: String
         if typeConforms(typeIdentifier, to: kUTTypeMovie as String) {
-            baseName = "Video"
+            baseName = "视频"
         } else if typeConforms(typeIdentifier, to: kUTTypeImage as String) {
-            baseName = "Photo"
+            baseName = "照片"
         } else {
-            baseName = "File"
+            baseName = "文件"
         }
         
         if let type = UTType(typeIdentifier),

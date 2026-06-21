@@ -16,13 +16,13 @@ enum ClearDataTimeframe: Int, CaseIterable {
     var title: String {
         switch self {
         case .lastHour:
-            return "Last hour"
+            return "最近一小时"
         case .today:
-            return "Today"
+            return "今天"
         case .todayAndYesterday:
-            return "Today and yesterday"
+            return "今天和昨天"
         case .allTime:
-            return "All history"
+            return "所有历史记录"
         }
     }
     

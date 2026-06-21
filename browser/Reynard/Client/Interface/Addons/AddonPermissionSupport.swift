@@ -38,70 +38,70 @@ private enum AddonHostPermissionKind: Equatable {
 }
 
 public enum AddonPermissionSupport {
-    public static let allowForAllSitesTitle = "Allow for all sites"
-    public static let allowForAllSitesSubtitle = "If you trust this extension, you can give it permission on every website."
-    public static let noPermissionsRequiredDescription = "This extension doesn’t require any permissions."
-    public static let noDataCollectionRequiredDescription = "The developer says this extension doesn’t require data collection."
-    public static let userScriptsWarning = "Unverified scripts can pose security and privacy risks. Only run scripts from extensions or sources you trust."
+    public static let allowForAllSitesTitle = "允许所有网站"
+    public static let allowForAllSitesSubtitle = "如果您信任此扩展，可以允许其在所有网站上运行。"
+    public static let noPermissionsRequiredDescription = "此扩展不需要任何权限。"
+    public static let noDataCollectionRequiredDescription = "开发者表示此扩展不需要收集数据。"
+    public static let userScriptsWarning = "未经验证的脚本可能带来安全和隐私风险。请仅运行来自受信任扩展或来源的脚本。"
     
     private static let permissionDescriptions = [
-        "<all_urls>": "Access your data for all websites",
-        "bookmarks": "Read and modify bookmarks",
-        "browserSettings": "Read and modify browser settings",
-        "browsingData": "Clear recent browsing history, cookies, and related data",
-        "clipboardRead": "Get data from the clipboard",
-        "clipboardWrite": "Input data to the clipboard",
-        "declarativeNetRequest": "Block content on any page",
-        "declarativeNetRequestFeedback": "Read your browsing history",
-        "devtools": "Extend developer tools to access your data in open tabs",
-        "downloads": "Download files and read and modify the browser's download history",
-        "downloads.open": "Open files downloaded to your device",
-        "find": "Read the text of all open tabs",
-        "geolocation": "Access your location",
-        "history": "Access browsing history",
-        "management": "Monitor extension usage and manage themes",
-        "nativeMessaging": "Exchange messages with apps other than this one",
-        "notifications": "Display notifications to you",
-        "pkcs11": "Provide cryptographic authentication services",
-        "privacy": "Read and modify privacy settings",
-        "proxy": "Control browser proxy settings",
-        "sessions": "Access recently closed tabs",
-        "tabHide": "Hide and show browser tabs",
-        "tabs": "Access browser tabs",
-        "topSites": "Access browsing history",
-        "trialML": "Download and run AI models on your device",
-        "userScripts": "Allow unverified third-party scripts to access your data",
-        "webNavigation": "Access browser activity during navigation",
+        "<all_urls>": "访问您在所有网站的数据",
+        "bookmarks": "读取和修改书签",
+        "browserSettings": "读取和修改浏览器设置",
+        "browsingData": "清除最近的浏览历史、Cookie及相关数据",
+        "clipboardRead": "从剪贴板获取数据",
+        "clipboardWrite": "将数据写入剪贴板",
+        "declarativeNetRequest": "阻止任何页面上的内容",
+        "declarativeNetRequestFeedback": "读取您的浏览历史",
+        "devtools": "扩展开发者工具以访问您在打开标签页中的数据",
+        "downloads": "下载文件并读取、修改浏览器的下载历史",
+        "downloads.open": "打开下载到您设备的文件",
+        "find": "读取所有打开标签页的文本",
+        "geolocation": "访问您的位置",
+        "history": "访问浏览历史",
+        "management": "监控扩展使用情况并管理主题",
+        "nativeMessaging": "与此应用以外的应用交换消息",
+        "notifications": "向您显示通知",
+        "pkcs11": "提供加密身份验证服务",
+        "privacy": "读取和修改隐私设置",
+        "proxy": "控制浏览器代理设置",
+        "sessions": "访问最近关闭的标签页",
+        "tabHide": "隐藏和显示浏览器标签页",
+        "tabs": "访问浏览器标签页",
+        "topSites": "访问浏览历史",
+        "trialML": "在您的设备上下载并运行 AI 模型",
+        "userScripts": "允许未经验证的第三方脚本访问您的数据",
+        "webNavigation": "访问导航期间的浏览器活动",
     ]
     
     private static let dataCollectionShortDescriptions = [
-        "authenticationInfo": "authentication information",
-        "bookmarksInfo": "bookmarks",
-        "browsingActivity": "browsing activity",
-        "financialAndPaymentInfo": "financial and payment information",
-        "healthInfo": "health information",
-        "locationInfo": "location",
-        "personalCommunications": "personal communications",
-        "personallyIdentifyingInfo": "personally identifying information",
-        "searchTerms": "search terms",
-        "technicalAndInteraction": "technical and interaction data",
-        "websiteActivity": "website activity",
-        "websiteContent": "website content",
+        "authenticationInfo": "身份验证信息",
+        "bookmarksInfo": "书签",
+        "browsingActivity": "浏览活动",
+        "financialAndPaymentInfo": "财务和支付信息",
+        "healthInfo": "健康信息",
+        "locationInfo": "位置",
+        "personalCommunications": "个人通讯",
+        "personallyIdentifyingInfo": "个人身份信息",
+        "searchTerms": "搜索词",
+        "technicalAndInteraction": "技术和交互数据",
+        "websiteActivity": "网站活动",
+        "websiteContent": "网站内容",
     ]
     
     private static let dataCollectionLongDescriptions = [
-        "authenticationInfo": "Share authentication information with extension developer",
-        "bookmarksInfo": "Share bookmarks information with extension developer",
-        "browsingActivity": "Share browsing activity with extension developer",
-        "financialAndPaymentInfo": "Share financial and payment information with extension developer",
-        "healthInfo": "Share health information with extension developer",
-        "locationInfo": "Share location information with extension developer",
-        "personalCommunications": "Share personal communications with extension developer",
-        "personallyIdentifyingInfo": "Share personally identifying information with extension developer",
-        "searchTerms": "Share search terms with extension developer",
-        "technicalAndInteraction": "Share technical and interaction data with extension developer",
-        "websiteActivity": "Share website activity with extension developer",
-        "websiteContent": "Share website content with extension developer",
+        "authenticationInfo": "与扩展开发者共享身份验证信息",
+        "bookmarksInfo": "与扩展开发者共享书签信息",
+        "browsingActivity": "与扩展开发者共享浏览活动",
+        "financialAndPaymentInfo": "与扩展开发者共享财务和支付信息",
+        "healthInfo": "与扩展开发者共享健康信息",
+        "locationInfo": "与扩展开发者共享位置信息",
+        "personalCommunications": "与扩展开发者共享个人通讯",
+        "personallyIdentifyingInfo": "与扩展开发者共享个人身份信息",
+        "searchTerms": "与扩展开发者共享搜索词",
+        "technicalAndInteraction": "与扩展开发者共享技术和交互数据",
+        "websiteActivity": "与扩展开发者共享网站活动",
+        "websiteContent": "与扩展开发者共享网站内容",
     ]
     
     public static func localizePermissions(_ permissions: [String], forUpdate: Bool = false) -> [String] {
@@ -219,7 +219,7 @@ public enum AddonPermissionSupport {
             return nil
         }
         
-        return "The developer says this extension collects: \(formatLocalizedDataCollectionPermissions(localizedPermissions))"
+        return "开发者表示此扩展收集：\(formatLocalizedDataCollectionPermissions(localizedPermissions))"
     }
     
     public static func optionalDataCollectionDescription(for permissions: [String]) -> String? {
@@ -228,7 +228,7 @@ public enum AddonPermissionSupport {
             return nil
         }
         
-        return "The developer says the extension wants to collect: \(formatLocalizedDataCollectionPermissions(localizedPermissions))"
+        return "开发者表示此扩展想要收集：\(formatLocalizedDataCollectionPermissions(localizedPermissions))"
     }
     
     public static func updateDataCollectionDescription(for permissions: [String]) -> String? {
@@ -237,7 +237,7 @@ public enum AddonPermissionSupport {
             return nil
         }
         
-        return "New required data collection: The developer says the extension will collect \(formatLocalizedDataCollectionPermissions(localizedPermissions))."
+        return "新要求的数据收集：开发者表示此扩展将收集 \(formatLocalizedDataCollectionPermissions(localizedPermissions))."
     }
     
     public static func updatePermissionDescription(for permissions: [String]) -> String? {
@@ -246,7 +246,7 @@ public enum AddonPermissionSupport {
             return nil
         }
         
-        return "New required permissions: \(localizedPermissions.joined(separator: " "))"
+        return "新要求的权限：\(localizedPermissions.joined(separator: " "))"
     }
     
     public static func allSiteOriginPermissions(_ origins: [String]) -> [String] {
@@ -292,12 +292,12 @@ public enum AddonPermissionSupport {
     public static func localizeHostPermission(_ permission: String, forUpdate: Bool) -> String? {
         switch hostPermissionKind(for: permission) {
         case .allUrls:
-            return forUpdate ? "Access your data for all websites." : "Access your data for all websites"
+            return forUpdate ? "访问您在所有网站的数据。" : "访问您在所有网站的数据"
         case .domain(let host):
-            let description = "Access your data for sites in the \(host) domain"
+            let description = "访问您在 \(host) 域名的网站的数据"
             return forUpdate ? description + "." : description
         case .site(let host):
-            let description = "Access your data for \(host)"
+            let description = "访问您在 \(host) 的数据"
             return forUpdate ? description + "." : description
         case nil:
             return nil
@@ -332,7 +332,7 @@ public enum AddonPermissionSupport {
             }
             return false
         }) {
-            return [forUpdate ? "Access your data for all websites." : "Access your data for all websites"]
+            return [forUpdate ? "访问您在所有网站的数据。" : "访问您在所有网站的数据"]
         }
         
         return formatURLAccessPermissions(hostPermissions, forUpdate: forUpdate)
@@ -356,31 +356,31 @@ public enum AddonPermissionSupport {
                 guard domainCount <= maxShownPermissionsEntries else {
                     continue
                 }
-                let description = "Access your data for sites in the \(host) domain"
+                let description = "访问您在 \(host) 域名的网站的数据"
                 descriptions.append(forUpdate ? description + "." : description)
             case .site(let host):
                 siteCount += 1
                 guard siteCount <= maxShownPermissionsEntries else {
                     continue
                 }
-                let description = "Access your data for \(host)"
+                let description = "访问您在 \(host) 的数据"
                 descriptions.append(forUpdate ? description + "." : description)
             }
         }
         
         if domainCount > maxShownPermissionsEntries {
             if domainCount - maxShownPermissionsEntries == 1 {
-                descriptions.append(forUpdate ? "Access your data on another domain." : "Access your data on another domain")
+                descriptions.append(forUpdate ? "访问您在另一个域名的数据。" : "访问您在另一个域名的数据")
             } else {
-                descriptions.append(forUpdate ? "Access your data on other domains." : "Access your data on other domains")
+                descriptions.append(forUpdate ? "访问您在其他域名的数据。" : "访问您在其他域名的数据")
             }
         }
         
         if siteCount > maxShownPermissionsEntries {
             if siteCount - maxShownPermissionsEntries == 1 {
-                descriptions.append(forUpdate ? "Access your data on another site." : "Access your data on another site")
+                descriptions.append(forUpdate ? "访问您在另一个网站的数据。" : "访问您在另一个网站的数据")
             } else {
-                descriptions.append(forUpdate ? "Access your data on other sites." : "Access your data on other sites")
+                descriptions.append(forUpdate ? "访问您在其他网站的数据。" : "访问您在其他网站的数据")
             }
         }
         

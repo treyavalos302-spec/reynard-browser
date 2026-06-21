@@ -59,7 +59,7 @@ final class AddonPermissionPromptViewController: UITableViewController {
         button.layer.cornerRadius = UX.actionButtonCornerRadius
         button.layer.cornerCurve = .continuous
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setTitle(prompt.kind == .install ? "Add" : "Allow", for: .normal)
+        button.setTitle(prompt.kind == .install ? "添加" : "允许", for: .normal)
         button.addTarget(self, action: #selector(confirmPrompt), for: .touchUpInside)
         return button
     }()
@@ -144,11 +144,11 @@ final class AddonPermissionPromptViewController: UITableViewController {
             guard !permissionRows.isEmpty else {
                 return nil
             }
-            return "Required Permissions"
+            return "所需权限"
         case .dataCollection:
-            return "Required Data Collection"
+            return "所需数据收集"
         case .options:
-            return "Additional Options"
+            return "其他选项"
         case .message:
             return nil
         }
@@ -182,7 +182,7 @@ final class AddonPermissionPromptViewController: UITableViewController {
                 cell.textLabel?.text = value
             case .showAllSites:
                 cell.textLabel?.font = .preferredFont(forTextStyle: .body)
-                cell.textLabel?.text = "Show All Sites"
+                cell.textLabel?.text = "显示所有网站"
                 cell.textLabel?.textColor = view.tintColor
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
@@ -195,7 +195,7 @@ final class AddonPermissionPromptViewController: UITableViewController {
             cell.textLabel?.text = dataCollectionDescription
         case .options:
             cell.textLabel?.font = .preferredFont(forTextStyle: .body)
-            cell.textLabel?.text = "Allow in Private Browsing"
+            cell.textLabel?.text = "在无痕浏览中允许"
             cell.accessoryView = privateBrowsingSwitch
         }
         
@@ -289,7 +289,7 @@ final class AddonPermissionPromptViewController: UITableViewController {
         
         switch prompt.kind {
         case .install:
-            return "Add \(addonName)?"
+            return "添加 \(addonName)？"
         case .optional:
             if prompt.permissions.isEmpty && prompt.origins.isEmpty && !prompt.dataCollectionPermissions.isEmpty {
                 return "\(addonName) requests additional data collection."
@@ -304,7 +304,7 @@ final class AddonPermissionPromptViewController: UITableViewController {
         var rows: [PermissionRow] = []
         
         if !domains.isEmpty {
-            rows.append(.domainHeader("Access your data for sites in \(domains.count) domains"))
+            rows.append(.domainHeader("访问您在 \(domains.count) 个域名的网站数据"))
             rows.append(.showAllSites)
         }
         
@@ -350,9 +350,9 @@ final class AddonPermissionPromptViewController: UITableViewController {
     private static func promptTitle(for prompt: AddonPermissionPrompt) -> String {
         switch prompt.kind {
         case .install:
-            return "Add Add-on"
+            return "添加扩展"
         case .optional, .update:
-            return "Update Add-on Permissions"
+            return "更新扩展权限"
         }
     }
     
@@ -365,7 +365,7 @@ private final class AddonPromptSiteListViewController: UITableViewController {
     init(sites: [String]) {
         self.sites = sites
         super.init(style: .insetGrouped)
-        title = "Sites"
+        title = "网站"
     }
     
     required init?(coder: NSCoder) {

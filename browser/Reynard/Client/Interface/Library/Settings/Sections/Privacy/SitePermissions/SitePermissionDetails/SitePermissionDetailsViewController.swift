@@ -27,13 +27,13 @@ final class SitePermissionDetailsViewController: SettingsTableViewController {
         var text: SettingsSectionText {
             switch self {
             case .defaultBehavior:
-                return SettingsSectionText(headerTitle: "Default Behavior")
+                return SettingsSectionText(headerTitle: "默认行为")
             case .allowedSiteEntries:
-                return SettingsSectionText(headerTitle: "Allowed Sites")
+                return SettingsSectionText(headerTitle: "允许的网站")
             case .blockedSiteEntries:
-                return SettingsSectionText(headerTitle: "Denied Sites")
+                return SettingsSectionText(headerTitle: "拒绝的网站")
             case .customSiteActions:
-                return SettingsSectionText(headerTitle: "Changed Sites")
+                return SettingsSectionText(headerTitle: "已更改的网站")
             }
         }
     }
@@ -230,7 +230,7 @@ final class SitePermissionDetailsViewController: SettingsTableViewController {
     
     private func emptySiteEntryCell() -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = "No Sites Added"
+        cell.textLabel?.text = "未添加网站"
         cell.textLabel?.textColor = .secondaryLabel
         cell.selectionStyle = .none
         return cell
@@ -286,7 +286,7 @@ final class SitePermissionDetailsViewController: SettingsTableViewController {
     }
     
     private func clearSiteActionSwipeConfiguration(for host: String) -> UISwipeActionsConfiguration {
-        let clearAction = UIContextualAction(style: .destructive, title: "Clear") { [weak self] _, _, completion in
+        let clearAction = UIContextualAction(style: .destructive, title: "清除") { [weak self] _, _, completion in
             guard let self else {
                 completion(false)
                 return
@@ -308,11 +308,11 @@ final class SitePermissionDetailsViewController: SettingsTableViewController {
         let timestamp = timestampFormatter.string(from: date)
         switch action {
         case .allowed:
-            return "Allowed on \(timestamp)"
+            return "允许于 \(timestamp)"
         case .blocked:
-            return "Denied on \(timestamp)"
+            return "拒绝于 \(timestamp)"
         case .askToAllow:
-            return "Changed on \(timestamp)"
+            return "更改于 \(timestamp)"
         }
     }
     

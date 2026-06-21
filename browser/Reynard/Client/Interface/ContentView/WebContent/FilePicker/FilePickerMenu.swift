@@ -155,13 +155,13 @@ extension FilePicker {
         
         switch (supportsImages, supportsVideos) {
         case (true, true):
-            return "Take Photo or Video"
+            return "拍照或录像"
         case (true, false):
-            return "Take Photo"
+            return "拍照"
         case (false, true):
-            return "Take Video"
+            return "录像"
         case (false, false):
-            return "Take Photo"
+            return "拍照"
         }
     }
     

@@ -44,7 +44,7 @@ final class MultiSelectViewController: UIViewController, UITableViewDataSource, 
     // MARK: - Setup
     
     private func configureNavigation() {
-        title = "Select Options"
+        title = "选择选项"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,

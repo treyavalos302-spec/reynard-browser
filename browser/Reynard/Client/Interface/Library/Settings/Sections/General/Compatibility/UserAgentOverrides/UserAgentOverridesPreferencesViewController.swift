@@ -13,7 +13,7 @@ final class UserAgentOverridesPreferencesViewController: SettingsTableViewContro
         
         var text: SettingsSectionText {
             return SettingsSectionText(
-                footerTitle: "Navigations to these websites will use the browser's compatibility user agent. Depending on your Request Desktop Website setting, these websites may identify your device as either an Android device or a desktop Linux device."
+                footerTitle: "导航到这些网站时将使用浏览器的兼容性用户代理。根据您的请求桌面版网站设置，这些网站可能会将您的设备识别为 Android 设备或桌面 Linux 设备。"
             )
         }
     }
@@ -31,7 +31,7 @@ final class UserAgentOverridesPreferencesViewController: SettingsTableViewContro
     
     init() {
         super.init(style: .insetGrouped)
-        title = "User Agent Overrides"
+        title = "用户代理覆盖"
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +66,7 @@ final class UserAgentOverridesPreferencesViewController: SettingsTableViewContro
             cell.textLabel?.text = domain
             cell.selectionStyle = .default
         case .addWebsite:
-            cell.textLabel?.text = "Add Website..."
+            cell.textLabel?.text = "添加网站..."
             cell.textLabel?.textColor = tableView.tintColor
         }
         return cell
@@ -109,19 +109,19 @@ final class UserAgentOverridesPreferencesViewController: SettingsTableViewContro
     }
     
     private func promptForOverrideDomain() {
-        let alert = UIAlertController(title: "Add Website", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "添加网站", message: nil, preferredStyle: .alert)
         alert.addTextField { field in
-            field.placeholder = "e.g. youtube.com"
+            field.placeholder = "例如 youtube.com"
             field.autocorrectionType = .no
             field.autocapitalizationType = .none
             field.keyboardType = .URL
             field.clearButtonMode = .whileEditing
         }
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self, weak alert] _ in
+        let addAction = UIAlertAction(title: "添加", style: .default) { [weak self, weak alert] _ in
             guard let text = alert?.textFields?.first?.text else { return }
             self?.addOverrideDomain(text)
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
         alert.addAction(addAction)
         present(alert, animated: true)
     }

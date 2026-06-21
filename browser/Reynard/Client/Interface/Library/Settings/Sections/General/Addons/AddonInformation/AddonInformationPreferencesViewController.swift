@@ -19,9 +19,9 @@ final class AddonInformationPreferencesViewController: SettingsTableViewControll
             case .description:
                 return SettingsSectionText()
             case .information:
-                return SettingsSectionText(headerTitle: "Information")
+                return SettingsSectionText(headerTitle: "信息")
             case .links:
-                return SettingsSectionText(headerTitle: "Links")
+                return SettingsSectionText(headerTitle: "链接")
             }
         }
     }
@@ -91,10 +91,10 @@ final class AddonInformationPreferencesViewController: SettingsTableViewControll
             rows.append(InformationRow(title: "Author", value: creatorName, link: normalizedURLString(metaData.creatorURL)))
         }
         
-        rows.append(InformationRow(title: "Version", value: metaData.version, link: nil))
+        rows.append(InformationRow(title: "版本", value: metaData.version, link: nil))
         
         if let updateDate = updateDateText(metaData.updateDate) {
-            rows.append(InformationRow(title: "Last updated", value: updateDate, link: nil))
+            rows.append(InformationRow(title: "最后更新", value: updateDate, link: nil))
         }
         
         if let ratingText = ratingText(metaData) {
@@ -127,7 +127,7 @@ final class AddonInformationPreferencesViewController: SettingsTableViewControll
     init(addonID: String) {
         self.addonID = addonID
         super.init(style: .insetGrouped)
-        title = "Details"
+        title = "详情"
     }
     
     required init?(coder: NSCoder) {
@@ -259,7 +259,7 @@ final class AddonInformationPreferencesViewController: SettingsTableViewControll
             }
         } catch {
             await MainActor.run {
-                AlertPresenter.show(title: "Failed to reload add-on", message: "\(error)")
+                AlertPresenter.show(title: "重新加载扩展失败", message: "\(error)")
             }
         }
     }

@@ -55,7 +55,7 @@ final class UpdatesSettingsSection {
         case .releaseNotes:
             return UpdateReleaseNotesCell()
         case .updateNow:
-            let cell = SettingsViewUtils.actionCell(title: "Update Now", tintColor: tintColor)
+            let cell = SettingsViewUtils.actionCell(title: "立即更新", tintColor: tintColor)
             cell.textLabel?.textAlignment = .center
             return cell
         }
@@ -71,7 +71,7 @@ final class UpdatesSettingsSection {
         footerLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         footerLabel.adjustsFontForContentSizeCategory = true
         footerLabel.textColor = .secondaryLabel
-        footerLabel.text = "Make sure TrollStore's URL Scheme is enabled."
+        footerLabel.text = "确保 TrollStore 的 URL Scheme 已启用。"
         
         footerView.contentView.addSubview(footerLabel)
         NSLayoutConstraint.activate([
@@ -100,7 +100,7 @@ final class UpdatesSettingsSection {
               let latestEntry = versions.first,
               let packageURLString = latestEntry["downloadURL"] as? String,
               let packageURL = URL(string: packageURLString) else {
-            AlertPresenter.show(title: "Update Unavailable", message: "Could not retrieve the download URL.")
+            AlertPresenter.show(title: "更新不可用", message: "无法获取下载链接。")
             return
         }
         
@@ -123,7 +123,7 @@ final class UpdatesSettingsSection {
                 from: packageURL,
                 fileName: "Reynard.ipa",
                 expectedSize: expectedSize,
-                message: "When the download finishes, choose the app that you used to sideload Reynard in the share sheet to install the update.",
+                message: "下载完成后，在分享面板中选择您用来侧载 Reynard 的应用来安装更新。",
                 viewController: viewController
             )
         }
@@ -146,7 +146,7 @@ final class UpdatesSettingsSection {
             return
         }
         
-        let alert = UIAlertController(title: "Downloading Update", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "正在下载更新", message: message, preferredStyle: .alert)
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progress = 0
@@ -170,7 +170,7 @@ final class UpdatesSettingsSection {
                     }
                     
                     SettingsViewUtils.dismissPresentedAlert(alert, from: viewController) {
-                        AlertPresenter.show(title: "Download Failed", message: error.localizedDescription)
+                        AlertPresenter.show(title: "下载失败", message: error.localizedDescription)
                     }
                     return
                 }
@@ -188,7 +188,7 @@ final class UpdatesSettingsSection {
         }
         activeUpdateTask = task
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel) { [weak self] _ in
             self?.activeUpdateTask?.cancel()
             self?.activeUpdateTask = nil
             self?.updateProgressObservation = nil

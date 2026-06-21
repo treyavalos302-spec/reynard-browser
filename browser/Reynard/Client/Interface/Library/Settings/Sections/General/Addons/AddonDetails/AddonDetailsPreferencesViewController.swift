@@ -92,14 +92,14 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
         let metaData = addon.metaData
         if metaData.isBlocklisted {
             return StatusMessage(
-                text: "This extension is blocked for violating Mozilla's policies and has been disabled.",
+                text: "此扩展因违反 Mozilla 的政策已被阻止并禁用。",
                 color: .systemRed
             )
         }
         
         if metaData.isUnsupported {
             return StatusMessage(
-                text: "This extension isn't supported by this version of Reynard and has been disabled.",
+                text: "此扩展不受此版本的 Reynard 支持，已被禁用。",
                 color: .systemOrange
             )
         }
@@ -123,8 +123,8 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
         if metaData.isSoftBlocked {
             return StatusMessage(
                 text: metaData.enabled
-                ? "This extension is restricted. Using it may be risky."
-                : "This extension is restricted and has been disabled. You can enable it, but this may be risky.",
+                ? "此扩展受限。使用它可能存在风险。"
+                : "此扩展受限并已被禁用。您可以启用它，但这可能存在风险。",
                 color: .systemOrange
             )
         }
@@ -137,7 +137,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
     init(addonID: String) {
         self.addonID = addonID
         super.init(style: .insetGrouped)
-        title = "Add-on"
+        title = "扩展"
     }
     
     required init?(coder: NSCoder) {
@@ -282,7 +282,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
                 await MainActor.run {
                     self.isUpdatingAddon = false
                     self.display(addon: addon)
-                    AlertPresenter.show(title: "Failed to update private browsing access", message: "\(error)")
+                    AlertPresenter.show(title: "更新无痕浏览访问权限失败", message: "\(error)")
                 }
             }
         }
@@ -317,7 +317,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
                 await MainActor.run {
                     self.isUpdatingAddon = false
                     self.display(addon: addon)
-                    AlertPresenter.show(title: "Failed to \(desiredState ? "enable" : "disable") add-on", message: "\(error)")
+                    AlertPresenter.show(title: "\(desiredState ? "启用" : "禁用")扩展失败", message: "\(error)")
                 }
             }
         }
@@ -347,7 +347,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
             }
         } catch {
             await MainActor.run {
-                AlertPresenter.show(title: "Failed to reload add-on", message: "\(error)")
+                AlertPresenter.show(title: "重新加载扩展失败", message: "\(error)")
             }
         }
     }
@@ -387,18 +387,18 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
         
         switch displayedActionRows[indexPath.row] {
         case .enabled:
-            cell.textLabel?.text = "Enabled"
+            cell.textLabel?.text = "已启用"
             cell.selectionStyle = .none
             cell.accessoryView = enableSwitch
         case .privateBrowsing:
             cell.textLabel?.text = addon?.metaData.incognito == .notAllowed
-            ? "Not Allowed in Private Browsing"
-            : "Allow in Private Browsing"
+            ? "不允许在无痕浏览中使用"
+            : "允许在无痕浏览中使用"
             cell.textLabel?.textColor = addon?.metaData.incognito == .notAllowed ? .secondaryLabel : .label
             cell.selectionStyle = .none
             cell.accessoryView = privateBrowsingSwitch
         case .remove:
-            cell.textLabel?.text = "Remove"
+            cell.textLabel?.text = "移除"
             cell.textLabel?.textColor = addon == nil || isUpdatingAddon ? .secondaryLabel : .systemRed
         case .settings, .details, .permissions:
             break
@@ -423,13 +423,13 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
         
         switch displayedNavigationRows[indexPath.row] {
         case .settings:
-            cell.textLabel?.text = "Settings"
+            cell.textLabel?.text = "设置"
         case .details:
-            cell.textLabel?.text = "Details"
+            cell.textLabel?.text = "详情"
         case .permissions:
-            cell.textLabel?.text = "Permissions"
+            cell.textLabel?.text = "权限"
         case .remove:
-            cell.textLabel?.text = "Remove"
+            cell.textLabel?.text = "移除"
             cell.textLabel?.textColor = addon == nil || isUpdatingAddon ? .secondaryLabel : .systemRed
             cell.accessoryType = .none
         case .enabled, .privateBrowsing:
@@ -448,11 +448,11 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
     private func confirmRemoval() {
         let addonName = addon?.metaData.name ?? addonID
         AlertPresenter.show(
-            title: "Do you want to remove \(addonName)?",
+            title: "确定要移除 \(addonName) 吗？",
             message: nil,
             buttons: [
-                AlertPresenter.Button(title: "Cancel", style: .cancel),
-                AlertPresenter.Button(title: "Remove", style: .destructive) { [weak self] in
+                AlertPresenter.Button(title: "取消", style: .cancel),
+                AlertPresenter.Button(title: "移除", style: .destructive) { [weak self] in
                     self?.uninstallAddon()
                 },
             ]
@@ -479,7 +479,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
                 await MainActor.run {
                     self.isUpdatingAddon = false
                     self.display(addon: addon)
-                    AlertPresenter.show(title: "Failed to remove add-on", message: "\(error)")
+                    AlertPresenter.show(title: "移除扩展失败", message: "\(error)")
                 }
             }
         }

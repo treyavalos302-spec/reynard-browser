@@ -85,7 +85,7 @@ final class BookmarkFolderRowCell: UITableViewCell {
         
         if folder.parentGUID == nil {
             folderIconView.image = UIImage(named: "reynard.book")?.withRenderingMode(.alwaysTemplate)
-        } else if folder.isProtected && folder.title == "Favorites" {
+        } else if folder.isProtected && (folder.title == "Favorites" || folder.title == "收藏夹") {
             folderIconView.image = UIImage(named: "reynard.star")?.withRenderingMode(.alwaysTemplate)
         } else {
             folderIconView.image = UIImage(named: "reynard.folder")?.withRenderingMode(.alwaysTemplate)

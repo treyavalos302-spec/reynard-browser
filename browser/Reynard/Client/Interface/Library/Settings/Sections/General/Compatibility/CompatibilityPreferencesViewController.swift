@@ -29,7 +29,7 @@ final class CompatibilityPreferencesViewController: SettingsTableViewController 
     
     init() {
         super.init(style: .insetGrouped)
-        title = "Compatibility"
+        title = "兼容性"
     }
     
     required init?(coder: NSCoder) {
@@ -73,13 +73,13 @@ final class CompatibilityPreferencesViewController: SettingsTableViewController 
         switch row {
         case .useAndroidUserAgent:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Use Android User Agent"
+            cell.textLabel?.text = "使用 Android 用户代理"
             cell.selectionStyle = .none
             cell.accessoryView = androidUserAgentSwitch
             return cell
         case .userAgentOverrides:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "User Agent Overrides"
+            cell.textLabel?.text = "用户代理覆盖"
             cell.accessoryType = .disclosureIndicator
             return cell
         }
@@ -104,14 +104,14 @@ final class CompatibilityPreferencesViewController: SettingsTableViewController 
         let headerTitle = Section.allCases[section].text.headerTitle
         if Prefs.CompatibilitySettings.useAndroidUserAgent {
             let footerTitle = Prefs.BrowsingSettings.requestDesktopWebsite
-            ? "The browser will use a desktop Firefox user agent for navigating the web."
-            : "To maximize compatibility, the browser will use the Firefox for Android user agent for navigating the web. As a result, websites may identify your device as an Android device."
+            ? "浏览器将使用桌面版 Firefox 用户代理进行网页浏览。"
+            : "为最大化兼容性，浏览器将使用 Firefox for Android 用户代理进行网页浏览。因此，网站可能会将您的设备识别为 Android 设备。"
             return SettingsSectionText(headerTitle: headerTitle, footerTitle: footerTitle)
         }
         
         return SettingsSectionText(
             headerTitle: headerTitle,
-            footerTitle: "If you encounter issues such as sign-in failures, human verification challenges, or other incorrect site behavior, adding the site's URL to this user agent override list may help resolve the problem."
+            footerTitle: "如果您遇到登录失败、人机验证或其他网站行为异常等问题，将该网站的 URL 添加到此用户代理覆盖列表可能有助于解决问题。"
         )
     }
     

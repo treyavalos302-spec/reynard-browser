@@ -141,7 +141,7 @@ final class AddonUpdateCoordinator {
         
         for addon in addons {
             await MainActor.run {
-                status(addon.id, "Updating...")
+                status(addon.id, "正在更新...")
             }
             
             do {
@@ -150,20 +150,20 @@ final class AddonUpdateCoordinator {
                     noUpdateCount += 1
                     clearPendingApproval(addon.id)
                     await MainActor.run {
-                        status(addon.id, "No update available")
+                        status(addon.id, "无可用更新")
                     }
                 } else {
                     updatedCount += 1
                     clearPendingApproval(addon.id)
                     await MainActor.run {
-                        status(addon.id, "Successfully updated")
+                        status(addon.id, "更新成功")
                     }
                 }
             } catch {
                 if AddonErrorPresenter.updateRequiresPermissions(error) {
                     markNeedsApproval(addon.id)
                     await MainActor.run {
-                        status(addon.id, "Needs permission to update")
+                        status(addon.id, "需要权限才能更新")
                     }
                     continue
                 }

@@ -24,9 +24,9 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
         var text: SettingsSectionText {
             switch self {
             case .installed:
-                return SettingsSectionText(headerTitle: "Installed Add-ons")
+                return SettingsSectionText(headerTitle: "已安装的扩展")
             case .unsupported:
-                return SettingsSectionText(headerTitle: "Unsupported Add-ons")
+                return SettingsSectionText(headerTitle: "不支持的扩展")
             case .more:
                 return SettingsSectionText()
             }
@@ -272,7 +272,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             }
             if let lastGlobalCheckAt = Prefs.AddonSettings.lastGlobalCheckAt {
                 return SettingsSectionText(
-                    footerTitle: "Last checked on \(lastCheckedDateFormatter.string(from: lastGlobalCheckAt))."
+                    footerTitle: "上次检查时间：\(lastCheckedDateFormatter.string(from: lastGlobalCheckAt))。"
                 )
             }
             return displayedSection.text
@@ -472,7 +472,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             return statusText
         }
         if addon.metaData.isUnsupported {
-            return "Unsupported"
+            return "不支持"
         }
         return nil
     }
@@ -539,7 +539,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
                 self.isCheckingForAddonUpdates = false
                 
                 let pendingApprovalAddonIDs = Prefs.AddonSettings.pendingApprovalAddonIDs
-                pendingApprovalAddonIDs.forEach { self.addonStatusTextByID[$0] = "Needs permission to update" }
+                pendingApprovalAddonIDs.forEach { self.addonStatusTextByID[$0] = "需要权限才能更新" }
                 self.updateFooterMessage = self.updateFooterSummary(for: result)
                 self.tableView.reloadData()
             }
@@ -579,7 +579,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
         }
         
         if parts.isEmpty, result.noUpdateCount > 0 {
-            return "No updates found."
+            return "未找到更新。"
         }
         
         return parts.isEmpty ? nil : parts.joined(separator: " ")

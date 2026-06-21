@@ -15,7 +15,7 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
         var text: SettingsSectionText {
             switch self {
             case .engines:
-                return SettingsSectionText(headerTitle: "Search Engine")
+                return SettingsSectionText(headerTitle: "搜索引擎")
             case .customTemplate:
                 return SettingsSectionText()
             }

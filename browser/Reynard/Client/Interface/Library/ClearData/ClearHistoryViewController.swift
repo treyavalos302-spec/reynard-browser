@@ -15,7 +15,7 @@ final class ClearHistoryViewController: UITableViewController {
     private let closeAllTabsSwitch = UISwitch()
     
     private lazy var clearFooterView = ClearDataFooterView(
-        title: "Clear History",
+        title: "清除历史记录",
         target: self,
         action: #selector(confirmClearHistory)
     )
@@ -24,7 +24,7 @@ final class ClearHistoryViewController: UITableViewController {
         self.tabCount = tabCount
         self.onClear = onClear
         super.init(style: .insetGrouped)
-        title = "Clear History"
+        title = "清除历史记录"
     }
     
     required init?(coder: NSCoder) {
@@ -55,7 +55,7 @@ final class ClearHistoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Clear Timeframe" : "Additional Options"
+        section == 0 ? "清除时间范围" : "其他选项"
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -63,7 +63,7 @@ final class ClearHistoryViewController: UITableViewController {
             return nil
         }
         
-        return "This will close your \(tabCount) \(tabCount == 1 ? "tab" : "tabs")."
+        return "这将关闭您的 \(tabCount) 个标签页。"
     }
     
     override func tableView(
@@ -75,7 +75,7 @@ final class ClearHistoryViewController: UITableViewController {
         if indexPath.section == 0 {
             ClearDataTimeframe.configureCell(cell, at: indexPath, selectedTimeframe: selectedTimeframe)
         } else {
-            cell.textLabel?.text = "Close All Tabs"
+            cell.textLabel?.text = "关闭所有标签页"
             cell.accessoryView = closeAllTabsSwitch
             cell.accessoryType = .none
             cell.selectionStyle = .none

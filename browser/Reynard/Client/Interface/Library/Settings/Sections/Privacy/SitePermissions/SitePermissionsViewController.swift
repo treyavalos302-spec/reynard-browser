@@ -40,21 +40,21 @@ final class SitePermissionsViewController: SettingsTableViewController {
         var title: String {
             switch self {
             case .autoplay:
-                return "Autoplay"
+                return "自动播放"
             case .camera:
-                return "Camera"
+                return "摄像头"
             case .microphone:
-                return "Microphone"
+                return "麦克风"
             case .location:
-                return "Location"
+                return "位置"
             case .persistentStorage:
-                return "Persistent Storage"
+                return "持久存储"
             case .crossOriginStorageAccess:
-                return "Cross-site Cookies"
+                return "跨站 Cookie"
             case .localDeviceAccess:
-                return "Device Apps and Services"
+                return "设备应用和服务"
             case .localNetworkAccess:
-                return "Local Network Devices"
+                return "本地网络设备"
             }
         }
         

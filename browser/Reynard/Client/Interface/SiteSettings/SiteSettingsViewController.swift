@@ -30,21 +30,21 @@ final class SiteSettingsViewController: UITableViewController {
         var title: String {
             switch self {
             case .camera:
-                return "Camera"
+                return "摄像头"
             case .microphone:
-                return "Microphone"
+                return "麦克风"
             case .location:
-                return "Location"
+                return "位置"
             case .persistentStorage:
-                return "Persistent Storage"
+                return "持久存储"
             case .crossOriginStorageAccess:
-                return "Cross-site Cookies"
+                return "跨站 Cookie"
             case .localDeviceAccess:
-                return "Device Apps and Services"
+                return "设备应用和服务"
             case .localNetworkAccess:
-                return "Local Network Devices"
+                return "本地网络设备"
             case .autoplay:
-                return "Autoplay"
+                return "自动播放"
             }
         }
         
@@ -114,7 +114,7 @@ final class SiteSettingsViewController: UITableViewController {
         self.origin = origin
         self.session = session
         super.init(style: .insetGrouped)
-        title = "Settings for \(host)"
+        title = "\(host) 的设置"
     }
     
     required init?(coder: NSCoder) {
@@ -157,9 +157,9 @@ final class SiteSettingsViewController: UITableViewController {
         case .availability:
             return nil
         case .permissions:
-            return "Permissions"
+            return "权限"
         case .siteActions:
-            return "Actions"
+            return "操作"
         }
     }
     
@@ -211,7 +211,7 @@ final class SiteSettingsViewController: UITableViewController {
         }
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = "Open Settings"
+        cell.textLabel?.text = "打开设置"
         cell.textLabel?.textColor = view.tintColor
         cell.accessoryType = .none
         return cell
@@ -257,9 +257,9 @@ final class SiteSettingsViewController: UITableViewController {
     
     private func resetSitePermissionsCell() -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = "Reset Permissions for this Site"
+        cell.textLabel?.text = "重置此网站的权限"
         cell.textLabel?.textColor = .systemRed
-        cell.detailTextLabel?.text = didResetSitePermissions ? "Successfully reset permissions for this site." : nil
+        cell.detailTextLabel?.text = didResetSitePermissions ? "成功重置此网站的权限。" : nil
         cell.detailTextLabel?.textColor = .secondaryLabel
         cell.accessoryView = nil
         cell.accessoryType = .none

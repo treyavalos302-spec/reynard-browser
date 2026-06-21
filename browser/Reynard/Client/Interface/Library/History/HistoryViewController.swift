@@ -30,7 +30,7 @@ final class HistoryViewController: UIViewController, UITableViewDataSource, UITa
         searchBar.autocapitalizationType = .none
         searchBar.autocorrectionType = .no
         searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search History"
+        searchBar.placeholder = "搜索历史记录"
         searchBar.delegate = self
         return searchBar
     }()
@@ -80,7 +80,7 @@ final class HistoryViewController: UIViewController, UITableViewDataSource, UITa
         return view
     }()
     
-    private let emptyStateView = SidebarEmptyBackgroundView(message: "Your browsing history appears here")
+    private let emptyStateView = SidebarEmptyBackgroundView(message: "您的浏览历史将显示在这里")
     private var sections: [HistorySection] = []
     private var storeObserver: NSObjectProtocol?
     private var nextOffset = 0
@@ -418,7 +418,7 @@ final class HistoryViewController: UIViewController, UITableViewDataSource, UITa
     
     private func updateEmptyState() {
         let hasRows = !sections.isEmpty
-        emptyStateView.message = query.isEmpty ? "Your browsing history appears here" : "No matching history"
+        emptyStateView.message = query.isEmpty ? "您的浏览历史将显示在这里" : "没有匹配的历史记录"
         tableView.backgroundView = hasRows ? nil : emptyStateView
         emptyStateView.updateContentInsets(from: tableView)
     }
@@ -580,7 +580,7 @@ final class HistoryViewController: UIViewController, UITableViewDataSource, UITa
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+        let deleteAction = UIContextualAction(style: .destructive, title: "删除") { [weak self] _, _, completion in
             guard let self, let item = self.item(at: indexPath) else {
                 completion(false)
                 return

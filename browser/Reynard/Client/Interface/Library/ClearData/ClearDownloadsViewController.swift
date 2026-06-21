@@ -12,7 +12,7 @@ final class ClearDownloadsViewController: UITableViewController {
     private var selectedTimeframe: ClearDataTimeframe = .lastHour
     
     private lazy var clearFooterView = ClearDataFooterView(
-        title: "Clear Downloads",
+        title: "清除下载记录",
         target: self,
         action: #selector(confirmClearDownloads)
     )
@@ -20,7 +20,7 @@ final class ClearDownloadsViewController: UITableViewController {
     init(onClear: @escaping (Date?) -> Void) {
         self.onClear = onClear
         super.init(style: .insetGrouped)
-        title = "Clear Downloads"
+        title = "清除下载记录"
     }
     
     required init?(coder: NSCoder) {
@@ -51,11 +51,11 @@ final class ClearDownloadsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Clear Timeframe"
+        "清除时间范围"
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        "Clearing downloads history does not delete files in your Downloads folder."
+        "清除下载历史不会删除您下载文件夹中的文件。"
     }
     
     override func tableView(

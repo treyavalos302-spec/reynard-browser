@@ -43,13 +43,13 @@ enum SiteSettingsUtils {
         var permissions: [String] = []
         
         if isCameraPermissionDisabled() {
-            permissions.append("Camera")
+            permissions.append("摄像头")
         }
         if isMicrophonePermissionDisabled() {
-            permissions.append("Microphone")
+            permissions.append("麦克风")
         }
         if isLocationPermissionDisabled() {
-            permissions.append("Location")
+            permissions.append("位置")
         }
         
         return permissions
@@ -79,20 +79,20 @@ enum SiteSettingsUtils {
         case .autoplay:
             switch action {
             case .allowed:
-                return "Allow Audio and Video"
+                return "允许音频和视频"
             case .askToAllow:
-                return "Block Audio only"
+                return "仅阻止音频"
             case .blocked:
-                return "Block Audio and Video"
+                return "阻止音频和视频"
             }
         default:
             switch action {
             case .allowed:
-                return "Allow"
+                return "允许"
             case .askToAllow:
-                return "Ask"
+                return "询问"
             case .blocked:
-                return "Deny"
+                return "拒绝"
             }
         }
     }

@@ -110,7 +110,7 @@ final class BookmarkItemCell: UITableViewCell {
         countLabel.text = "\(folder.childCount)"
         countLabel.isHidden = false
         
-        if folder.isProtected && folder.title == "Favorites" {
+        if folder.isProtected && folder.title == "Favorites" || folder.title == "收藏夹" {
             applyIcon(UIImage(named: "reynard.star"), tintColor: .secondaryLabel)
         } else {
             applyIcon(UIImage(named: "reynard.folder"), tintColor: .secondaryLabel)
