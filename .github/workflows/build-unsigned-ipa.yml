@@ -28,21 +28,25 @@ jobs:
         run: ./tools/development/build-idevice.sh
 
       - name: Bypass ALL Checks and Build Gecko engine
+        timeout-minutes: 90
+        env:
+          MOZ_NOSPAM: "1"
+          MACH_NO_TERMINAL_FOOTER: "1"
         run: |
           # 彻底绕过所有版本检查
           CONFIG_FILE="engine/firefox/build/moz.configure/toolchain.configure"
-          
+
           # 1. 绕过 MacOS SDK 26.4 限制
           sed -i '' 's/return "26.4"/return "1.0"/g' "$CONFIG_FILE"
-          
+
           # 2. 绕过 iOS SDK 18.4 限制
           sed -i '' 's/return "18.4"/return "1.0"/g' "$CONFIG_FILE"
-          
+
           # 3. 绕过 Clang 17.0 限制
           sed -i '' 's/info.version < "17.0"/info.version < "1.0"/g' "$CONFIG_FILE"
-          
+
           # 4. 解决链接器报错 (Failed to find an adequate linker)
-          # 在构建脚本中注入链接器路径和 SDK 路径
+          # 在 mozconfig 生成代码块中注入 SDK 路径和链接器设置
           sed -i '' '/ac_add_options --enable-application=mobile\/ios/a\
           echo "ac_add_options --with-macos-sdk=$(xcrun --sdk iphoneos --show-sdk-path)"\
           echo "export LD=$(xcrun --sdk iphoneos -f ld)"\
@@ -51,7 +55,11 @@ jobs:
           # 打印环境信息
           xcrun --sdk iphoneos --show-sdk-version
           clang --version | head -n 1
-          
+
+          # 把 build-gecko.sh 最后一行的 ./mach build 换成带 --verbose 的版本，
+          # 这样即使卡住也能持续看到进度，不会几小时没有任何输出
+          sed -i '' 's/^\.\/mach build$/.\/mach build --verbose 2>\&1/' tools/development/build-gecko.sh
+
           # 执行构建
           ./tools/development/build-gecko.sh
 
@@ -70,7 +78,7 @@ jobs:
           cp browser/Configuration/Reynard.xcconfig dist/Reynard.xcconfig
           BUILD_SHA=$(git rev-parse --short HEAD)
           sed -i '' "s/CURRENT_BUILD = .*/CURRENT_BUILD = $BUILD_SHA/" dist/Reynard.xcconfig
-          
+
           xcodebuild archive \
             -scheme "Reynard" \
             -archivePath "dist/Reynard.xcarchive" \
