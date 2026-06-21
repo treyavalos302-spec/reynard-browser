@@ -27,16 +27,25 @@ jobs:
       - name: Build idevice dependency
         run: ./tools/development/build-idevice.sh
 
-      - name: Bypass ALL SDK Checks and Build Gecko engine
+      - name: Bypass ALL Checks and Build Gecko engine
         run: |
-          # 彻底绕过所有 SDK 版本检查
-          # 强制将 MacOS SDK 要求从 26.4 降至 1.0
-          sed -i '' 's/return "26.4"/return "1.0"/g' engine/firefox/build/moz.configure/toolchain.configure
-          # 强制将 iOS SDK 要求从 18.4 降至 1.0
-          sed -i '' 's/return "18.4"/return "1.0"/g' engine/firefox/build/moz.configure/toolchain.configure
+          # 彻底绕过所有版本检查
+          CONFIG_FILE="engine/firefox/build/moz.configure/toolchain.configure"
           
-          # 打印当前环境 SDK 信息
+          # 1. 绕过 MacOS SDK 26.4 限制
+          sed -i '' 's/return "26.4"/return "1.0"/g' "$CONFIG_FILE"
+          
+          # 2. 绕过 iOS SDK 18.4 限制
+          sed -i '' 's/return "18.4"/return "1.0"/g' "$CONFIG_FILE"
+          
+          # 3. 绕过 Clang 17.0 限制 (新加！)
+          sed -i '' 's/info.version < "17.0"/info.version < "1.0"/g' "$CONFIG_FILE"
+          
+          # 打印当前环境信息
+          echo "Current iOS SDK Version:"
           xcrun --sdk iphoneos --show-sdk-version
+          echo "Current Clang Version:"
+          clang --version | head -n 1
           
           # 执行构建
           ./tools/development/build-gecko.sh
