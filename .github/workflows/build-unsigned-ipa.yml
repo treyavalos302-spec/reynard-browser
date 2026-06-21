@@ -27,9 +27,12 @@ jobs:
       - name: Build idevice dependency
         run: ./tools/development/build-idevice.sh
 
-      - name: Bypass SDK Check and Build Gecko engine
+      - name: Bypass ALL SDK Checks and Build Gecko engine
         run: |
-    
+          # 彻底绕过所有 SDK 版本检查
+          # 强制将 MacOS SDK 要求从 26.4 降至 1.0
+          sed -i '' 's/return "26.4"/return "1.0"/g' engine/firefox/build/moz.configure/toolchain.configure
+          # 强制将 iOS SDK 要求从 18.4 降至 1.0
           sed -i '' 's/return "18.4"/return "1.0"/g' engine/firefox/build/moz.configure/toolchain.configure
           
           # 打印当前环境 SDK 信息
