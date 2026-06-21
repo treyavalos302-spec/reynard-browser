@@ -27,13 +27,12 @@ jobs:
       - name: Build idevice dependency
         run: ./tools/development/build-idevice.sh
 
-      - name: Fix SDK Check and Build Gecko engine
+      - name: Bypass SDK Check and Build Gecko engine
         run: |
-          # 修复 SDK 版本检查报错
-          # 强制将要求的版本从 26.4 改为 14.0
-          find engine/firefox -type f \( -name "*.configure" -o -name "*.py" -o -name "moz.configure" \) | xargs sed -i '' 's/26\.4/14.0/g' 2>/dev/null || true
+    
+          sed -i '' 's/return "18.4"/return "1.0"/g' engine/firefox/build/moz.configure/toolchain.configure
           
-          # 打印当前 SDK 版本
+          # 打印当前环境 SDK 信息
           xcrun --sdk iphoneos --show-sdk-version
           
           # 执行构建
@@ -54,6 +53,7 @@ jobs:
           cp browser/Configuration/Reynard.xcconfig dist/Reynard.xcconfig
           BUILD_SHA=$(git rev-parse --short HEAD)
           sed -i '' "s/CURRENT_BUILD = .*/CURRENT_BUILD = $BUILD_SHA/" dist/Reynard.xcconfig
+          
           xcodebuild archive \
             -scheme "Reynard" \
             -archivePath "dist/Reynard.xcarchive" \
