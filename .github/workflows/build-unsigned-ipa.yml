@@ -1,0 +1,72 @@
+name: Build Unsigned IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          fetch-depth: 1
+
+      - name: Install dependencies
+        run: |
+          brew install ldid
+          rustup target add aarch64-apple-ios
+
+      - name: Update Gecko
+        run: ./tools/development/update-gecko.sh
+
+      - name: Apply Gecko patches
+        run: ./tools/development/apply-patches.sh
+
+      - name: Build idevice dependency
+        run: ./tools/development/build-idevice.sh
+
+      - name: Build Gecko engine
+        run: ./tools/development/build-gecko.sh
+
+      - name: Disable Code Signing in Xcode Project
+        run: |
+          sed -i '' 's/CODE_SIGN_IDENTITY = "Apple Development";/CODE_SIGN_IDENTITY = "";/g' browser/Reynard.xcodeproj/project.pbxproj
+          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' browser/Reynard.xcodeproj/project.pbxproj
+          sed -i '' 's/codesign --force --sign "${SIGN_IDENTITY}"/echo "Skipping codesign for unsigned build"/g' browser/Scripts/AddGecko.sh
+          echo "CODE_SIGNING_ALLOWED = NO" >> browser/Configuration/Reynard.xcconfig
+          echo "CODE_SIGNING_REQUIRED = NO" >> browser/Configuration/Reynard.xcconfig
+          echo 'CODE_SIGN_ENTITLEMENTS = ""' >> browser/Configuration/Reynard.xcconfig
+
+      - name: Build the app
+        run: |
+          mkdir -p dist
+          cp browser/Configuration/Reynard.xcconfig dist/Reynard.xcconfig
+          BUILD_SHA=$(git rev-parse --short HEAD)
+          sed -i '' "s/CURRENT_BUILD = .*/CURRENT_BUILD = $BUILD_SHA/" dist/Reynard.xcconfig
+          xcodebuild archive \
+            -scheme "Reynard" \
+            -archivePath "dist/Reynard.xcarchive" \
+            -project "browser/Reynard.xcodeproj" \
+            -sdk iphoneos \
+            -arch arm64 \
+            -configuration Release \
+            -xcconfig "dist/Reynard.xcconfig" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_ENTITLEMENTS=""
+
+      - name: Create Unsigned IPA
+        run: |
+          mkdir -p dist/Payload
+          cp -R dist/Reynard.xcarchive/Products/Applications/Reynard.app dist/Payload/
+          cd dist
+          zip -r Reynard-Unsigned.ipa Payload -x "._*" -x ".DS_Store" -x "__MACOSX"
+
+      - name: Upload .ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Reynard-Unsigned.ipa
+          path: ./dist/Reynard-Unsigned.ipa
