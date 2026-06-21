@@ -38,13 +38,18 @@ jobs:
           # 2. 绕过 iOS SDK 18.4 限制
           sed -i '' 's/return "18.4"/return "1.0"/g' "$CONFIG_FILE"
           
-          # 3. 绕过 Clang 17.0 限制 (新加！)
+          # 3. 绕过 Clang 17.0 限制
           sed -i '' 's/info.version < "17.0"/info.version < "1.0"/g' "$CONFIG_FILE"
           
-          # 打印当前环境信息
-          echo "Current iOS SDK Version:"
+          # 4. 解决链接器报错 (Failed to find an adequate linker)
+          # 在构建脚本中注入链接器路径和 SDK 路径
+          sed -i '' '/ac_add_options --enable-application=mobile\/ios/a\
+          echo "ac_add_options --with-macos-sdk=$(xcrun --sdk iphoneos --show-sdk-path)"\
+          echo "export LD=$(xcrun --sdk iphoneos -f ld)"\
+          echo "export LDFLAGS=-mlinker-version=600"' tools/development/build-gecko.sh
+
+          # 打印环境信息
           xcrun --sdk iphoneos --show-sdk-version
-          echo "Current Clang Version:"
           clang --version | head -n 1
           
           # 执行构建
